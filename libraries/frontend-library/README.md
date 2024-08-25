@@ -1,15 +1,6 @@
 ```plain
-Main:
+Frontend:
     InsignificantWhitespace Widgets? InsignificantWhitespace App InsignificantWhitespace Widgets? InsignificantWhitespace
-
-Widgets:
-    Widget*
-
-Widget:
-    InsignificantWhitespace Route
-    InsignificantWhitespace Layout
-    InsignificantWhitespace Provider
-    InsignificantWhitespace Component
 ```
 
 ```plain
