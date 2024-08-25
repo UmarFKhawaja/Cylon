@@ -1,0 +1,58 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "rootDir": ".",
+    "sourceMap": true,
+    "declaration": false,
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "esModuleInterop": true,
+    "experimentalDecorators": true,
+    "importHelpers": true,
+    "target": "es2015",
+    "module": "esnext",
+    "lib": [
+      "es2020",
+      "dom"
+    ],
+    "skipLibCheck": true,
+    "skipDefaultLibCheck": true,
+    "baseUrl": ".",
+    "paths": {
+      "@cylon/app-library": [
+        "libraries/app-library/src/index.ts"
+      ],
+      "@cylon/common-library": [
+        "libraries/common-library/src/index.ts"
+      ],
+      "@cylon/component-library": [
+        "libraries/component-library/src/index.ts"
+      ],
+      "@cylon/core-library": [
+        "libraries/core-library/src/index.ts"
+      ],
+      "@cylon/field-library": [
+        "libraries/field-library/src/index.ts"
+      ],
+      "@cylon/layout-library": [
+        "libraries/layout-library/src/index.ts"
+      ],
+      "@cylon/main-library": [
+        "libraries/main-library/src/index.ts"
+      ],
+      "@cylon/provider-library": [
+        "libraries/provider-library/src/index.ts"
+      ],
+      "@cylon/route-library": [
+        "libraries/route-library/src/index.ts"
+      ],
+      "@cylon/widget-library": [
+        "libraries/widget-library/src/index.ts"
+      ]
+    }
+  },
+  "exclude": [
+    "node_modules",
+    "tmp"
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "name": "@cylon/frontend-library",
+  "version": "0.0.1",
+  "dependencies": {
+    "@cylon/app-library": "*",
+    "@cylon/common-library": "*",
+    "@cylon/component-library": "*",
+    "@cylon/layout-library": "*",
+    "@cylon/provider-library": "*",
+    "@cylon/route-library": "*",
+    "@cylon/widget-library": "*",
+    "tslib": "*"
+  },
+  "type": "commonjs",
+  "main": "./src/index.js",
+  "typings": "./src/index.d.ts",
+  "private": true
+}
