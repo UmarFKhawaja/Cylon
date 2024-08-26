@@ -1,6 +1,12 @@
 ```plain
 Frontend:
-    InsignificantWhitespace Widgets? InsignificantWhitespace App InsignificantWhitespace Widgets? InsignificantWhitespace
+    InsignificantWhitespace FrontendName InsignificantWhitespace FrontendBody InsignificantWhitespace
+
+FrontendName:
+    Identifier
+
+FrontendBody:
+    Widgets? InsignificantWhitespace App InsignificantWhitespace Widgets?
 ```
 
 ```plain

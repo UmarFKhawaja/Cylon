@@ -54,22 +54,22 @@ interface Actions {
 }
 
 export function applyRule(input: Input, rule: Rule): Result {
-  const actions: Actions | null = rule.options.printLogs ? parseAction(rule.name) : null;
+  const actions: Actions = parseAction(rule.name);
 
   try {
-    if (actions) Log.debug(formatMessage(actions.start(input), input.level));
+    if (rule.options.printLogs) Log.debug(formatMessage(actions.start(input), input.level));
 
     const result: Result = executeRule(input, rule);
 
     if (result.hasSucceeded) {
-      if (actions) Log.info(formatMessage(actions.success(input), input.level));
+      if (rule.options.printLogs) Log.info(formatMessage(actions.success(input), input.level));
     } else {
-      if (actions?.failure) Log.error(formatMessage(actions.failure(input, new Error((result as FailureResult).message)), input.level));
+      if (rule.options.printLogs) Log.error(formatMessage(actions.failure(input, new Error((result as FailureResult).message)), input.level));
     }
 
     return result;
   } catch (error: unknown) {
-    if (actions?.failure) Log.error(formatMessage(actions.failure(input, error as Error), input.level));
+    if (rule.options.printLogs) Log.error(formatMessage(actions.failure(input, error as Error), input.level));
 
     throw error;
   }
@@ -93,24 +93,20 @@ function formatMessage(message: Message, level: number): string {
   return `${timestamp}: ${indent}${text}`;
 }
 
-function parseAction(ruleName: string): Actions | null {
+function parseAction(ruleName: string): Actions {
   const startText: string = `applying ${ruleName} rule`;
   const successText: string = `applied ${ruleName} rule`;
   const failureText: string = `could not apply ${ruleName}`;
 
-  try {
-    const start: StartAction = makeStartAction(startText);
-    const success: SuccessAction = makeSuccessAction(successText);
-    const failure: FailureAction = makeFailureAction(failureText);
+  const start: StartAction = makeStartAction(startText);
+  const success: SuccessAction = makeSuccessAction(successText);
+  const failure: FailureAction = makeFailureAction(failureText);
 
-    return {
-      start,
-      success,
-      failure
-    };
-  } catch (error: unknown) {
-    return null;
-  }
+  return {
+    start,
+    success,
+    failure
+  };
 }
 
 function makeStartAction(text: string): StartAction {

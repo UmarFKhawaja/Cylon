@@ -1,3 +1,4 @@
+import { File, Folder, Item } from '@cylon/common-library';
 import { AppBody } from './AppBody';
 import { AppName } from './AppName';
 
@@ -17,5 +18,16 @@ export class App {
 
   get body(): AppBody {
     return this._body;
+  }
+
+  render(): Item {
+    const items: Item[] = [];
+
+    items.push(new File(null, 'index.tsx'));
+    items.push(new File(null, 'props.ts'));
+
+    const app: Item = new Folder(null, 'MainApp', items);
+
+    return app;
   }
 }

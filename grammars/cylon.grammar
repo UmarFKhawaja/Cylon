@@ -1,0 +1,23 @@
+{
+    scopeName = 'source.cylon.frontend';
+    fileTypes = ('cylon');
+    foldingStartMarker = '\{\s*$';
+    foldingStopMarker = '^\s*\}';
+    patterns = (
+        {
+            name = 'keyword.control.untitled';
+            match = '\b(app|routes|route|provider|layout|component|outlet|props|state|value)\b';
+        },
+        {
+            name = 'string.quoted.single.untitled';
+            begin = '\'';
+            end = '\'';
+            patterns = (
+                {
+                    name = 'constant.character.escape.untitled';
+                    match = '\\.';
+                }
+            );
+        }
+    )
+}

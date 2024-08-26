@@ -37,8 +37,8 @@
       "@cylon/layout-library": [
         "libraries/layout-library/src/index.ts"
       ],
-      "@cylon/main-library": [
-        "libraries/main-library/src/index.ts"
+      "@cylon/frontend-library": [
+        "libraries/frontend-library/src/index.ts"
       ],
       "@cylon/provider-library": [
         "libraries/provider-library/src/index.ts"
