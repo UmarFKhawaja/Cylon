@@ -1,3 +1,5 @@
+import { readStream } from '../methods';
+
 export class Input {
   protected _text: string;
 
@@ -12,6 +14,14 @@ export class Input {
     this._index = 0;
     this._length = text.length;
     this._level = 0;
+  }
+
+  static async fromStream(stream: NodeJS.ReadStream): Promise<Input> {
+    const text: string = await readStream(stream);
+
+    const input: Input = new Input(text);
+
+    return input;
   }
 
   static fromText(text: string): Input {

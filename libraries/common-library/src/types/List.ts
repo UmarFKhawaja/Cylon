@@ -28,8 +28,4 @@ export abstract class List<T> {
 
     return item;
   }
-
-  print(format: (item: T) => string): void {
-    console.log(this._items.map((item: T) => format(item)).join('-'));
-  }
 }

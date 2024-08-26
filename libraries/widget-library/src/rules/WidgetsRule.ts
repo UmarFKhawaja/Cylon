@@ -1,4 +1,4 @@
-import { applyRule, Input, makeZeroOrMoreRule, ModelType, Output, Result, Rule } from '@cylon/common-library';
+import { applyRule, Context, Input, makeZeroOrMoreRule, ModelType, Result, Rule } from '@cylon/common-library';
 import { Widget, Widgets } from '../models';
 import { WidgetRule } from './WidgetRule';
 
@@ -13,22 +13,22 @@ export const WidgetsRule: Rule = {
   match: (input: Input): Result => {
     return applyRule(input, makeZeroOrMoreRule(WidgetRule));
   },
-  produce: (output: Output): void => {
+  produce: (context: Context): void => {
     const widgets: Widget[] = [];
 
-    while (!output.isEmpty) {
-      output.skipWhitespace();
+    while (!context.isEmpty) {
+      context.skipWhitespace();
 
-      output.assertModel(ModelType.WIDGET);
+      context.assertModel(ModelType.WIDGET);
 
-      const widget: Widget = output.removeModel<Widget>();
+      const widget: Widget = context.removeModel<Widget>();
 
       widgets.push(widget);
     }
 
-    output.assertEmpty();
+    context.assertEmpty();
 
-    output.addModel(
+    context.addModel(
       new Widgets(...widgets),
       ModelType.WIDGETS
     );

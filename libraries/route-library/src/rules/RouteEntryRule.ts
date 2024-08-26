@@ -1,10 +1,10 @@
 import {
   applyRule,
+  Context,
   Input,
   InsignificantWhitespaceRule,
   makeAllRulesRule,
   ModelType,
-  Output,
   Result,
   Rule
 } from '@cylon/common-library';
@@ -25,16 +25,16 @@ export const RouteEntryRule: Rule = {
       RouteNameRule
     ));
   },
-  produce: (output: Output): void => {
-    output.skipWhitespace();
+  produce: (context: Context): void => {
+    context.skipWhitespace();
 
-    output.assertModel(ModelType.ROUTE_NAME);
+    context.assertModel(ModelType.ROUTE_NAME);
 
-    const routeName: RouteName = output.removeModel<RouteName>();
+    const routeName: RouteName = context.removeModel<RouteName>();
 
-    output.assertEmpty();
+    context.assertEmpty();
 
-    output.addModel(
+    context.addModel(
       new RouteEntry(routeName),
       ModelType.ROUTE_ENTRY
     );

@@ -1,11 +1,11 @@
 import {
   applyRule,
+  Context,
   Input,
   InsignificantWhitespaceRule,
   makeAllRulesRule,
   makeAnyRulesRule,
   ModelType,
-  Output,
   Result,
   Rule
 } from '@cylon/common-library';
@@ -34,13 +34,13 @@ export const WidgetRule: Rule = {
       makeAllRulesRule(InsignificantWhitespaceRule, ComponentRule)
     ));
   },
-  produce: (output: Output): void => {
-    output.skipWhitespace();
+  produce: (context: Context): void => {
+    context.skipWhitespace();
 
-    output.assertModel(ModelType.ROUTE, ModelType.PROVIDER, ModelType.LAYOUT, ModelType.COMPONENT);
+    context.assertModel(ModelType.ROUTE, ModelType.PROVIDER, ModelType.LAYOUT, ModelType.COMPONENT);
 
-    const widget: Widget = output.removeModel<Widget>();
+    const widget: Widget = context.removeModel<Widget>();
 
-    output.addModel(widget, ModelType.WIDGET);
+    context.addModel(widget, ModelType.WIDGET);
   }
 };

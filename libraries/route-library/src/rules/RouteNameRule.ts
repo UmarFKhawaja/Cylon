@@ -1,4 +1,4 @@
-import { applyRule, Input, ModelType, Output, Result, Rule } from '@cylon/common-library';
+import { applyRule, Context, Input, ModelType, Result, Rule } from '@cylon/common-library';
 import { Identifier, IdentifierRule } from '@cylon/core-library';
 import { RouteName } from '../models';
 
@@ -13,12 +13,12 @@ export const RouteNameRule: Rule = {
   match: (input: Input): Result => {
     return applyRule(input, IdentifierRule);
   },
-  produce: (output: Output): void => {
-    output.assertModel(ModelType.IDENTIFIER);
+  produce: (context: Context): void => {
+    context.assertModel(ModelType.IDENTIFIER);
 
-    const identifier: Identifier = output.removeModel<Identifier>();
+    const identifier: Identifier = context.removeModel<Identifier>();
 
-    output.addModel(
+    context.addModel(
       new RouteName(identifier.value),
       ModelType.ROUTE_NAME
     );

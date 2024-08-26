@@ -1,18 +1,18 @@
 import {
   applyRule,
   CloseCurlyBracketRule,
+  Context,
   Input,
   InsignificantWhitespaceRule,
   makeAllRulesRule,
   ModelType,
   OpenCurlyBracketRule,
-  Output,
   Result,
   Rule
 } from '@cylon/common-library';
 import { RouteEntries, RoutesList } from '../models';
-import { RoutesKeywordRule } from './RoutesKeywordRule';
 import { RouteEntriesRule } from './RouteEntriesRule';
+import { RoutesKeywordRule } from './RoutesKeywordRule';
 
 // RoutesList:
 //   RoutesKeyword InsignificantWhitespace OpenCurlyBracket InsignificantWhitespace RouteEntries InsignificantWhitespace CloseCurlyBracket
@@ -33,32 +33,32 @@ export const RoutesListRule: Rule = {
       CloseCurlyBracketRule
     ));
   },
-  produce: (output: Output): void => {
-    output.assertKeyword('routes');
+  produce: (context: Context): void => {
+    context.assertKeyword('routes');
 
-    output.removeKeyword();
+    context.removeKeyword();
 
-    output.skipWhitespace();
+    context.skipWhitespace();
 
-    output.assertOpenCurlyBracket();
+    context.assertOpenCurlyBracket();
 
-    output.removeChar();
+    context.removeChar();
 
-    output.skipWhitespace();
+    context.skipWhitespace();
 
-    output.assertModel(ModelType.ROUTE_ENTRIES);
+    context.assertModel(ModelType.ROUTE_ENTRIES);
 
-    const routeEntries: RouteEntries = output.removeModel<RouteEntries>();
+    const routeEntries: RouteEntries = context.removeModel<RouteEntries>();
 
-    output.skipWhitespace();
+    context.skipWhitespace();
 
-    output.assertCloseCurlyBracket();
+    context.assertCloseCurlyBracket();
 
-    output.removeChar();
+    context.removeChar();
 
-    output.assertEmpty();
+    context.assertEmpty();
 
-    output.addModel(
+    context.addModel(
       new RoutesList(routeEntries),
       ModelType.ROUTES_LIST
     );

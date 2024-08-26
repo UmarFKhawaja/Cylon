@@ -4,7 +4,7 @@ import { Queue } from './Queue';
 import { Rule } from './Rule';
 import { CharToken, KeywordToken, ModelToken, StringToken, Token } from './Token';
 
-export class Output {
+export class Context {
   protected readonly _rule: Rule;
 
   protected readonly _queue: Queue<Token>;

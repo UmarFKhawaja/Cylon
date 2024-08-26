@@ -1,4 +1,4 @@
-import { Input, Output, Result, Rule, SuccessResult } from '../types';
+import { Context, Input, Result, Rule, SuccessResult } from '../types';
 
 export const DebugRule: Rule = {
   name: 'Debug',
@@ -8,6 +8,6 @@ export const DebugRule: Rule = {
   match: (input: Input): Result => {
     return SuccessResult.fromEmpty();
   },
-  produce: (output: Output): void => {
+  produce: (context: Context): void => {
   }
 };

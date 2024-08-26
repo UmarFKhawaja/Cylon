@@ -1,11 +1,11 @@
 import {
   applyRule,
+  Context,
   Input,
   InsignificantWhitespaceRule,
   makeAllRulesRule,
   makeZeroOrOneRule,
   ModelType,
-  Output,
   Result,
   Rule,
   SignificantWhitespaceRule
@@ -32,34 +32,34 @@ export const AppRule: Rule = {
       makeZeroOrOneRule(AppBodyRule)
     ));
   },
-  produce: (output: Output): void => {
-    output.assertKeyword('app');
+  produce: (context: Context): void => {
+    context.assertKeyword('app');
 
-    output.removeKeyword();
+    context.removeKeyword();
 
-    output.assertWhitespace();
+    context.assertWhitespace();
 
-    output.removeWhitespace();
+    context.removeWhitespace();
 
-    output.skipWhitespace();
+    context.skipWhitespace();
 
-    output.assertModel(ModelType.APP_NAME);
+    context.assertModel(ModelType.APP_NAME);
 
-    const appName: AppName = output.removeModel<AppName>();
+    const appName: AppName = context.removeModel<AppName>();
 
-    output.skipWhitespace();
+    context.skipWhitespace();
 
-    const appBody: AppBody = output.hasModel(ModelType.APP_BODY)
-      ? output.removeModel<AppBody>()
+    const appBody: AppBody = context.hasModel(ModelType.APP_BODY)
+      ? context.removeModel<AppBody>()
       : new AppBody(
         new RoutesList(
           new RouteEntries()
         )
       );
 
-    output.assertEmpty();
+    context.assertEmpty();
 
-    output.addModel(
+    context.addModel(
       new App(appName, appBody),
       ModelType.APP
     );

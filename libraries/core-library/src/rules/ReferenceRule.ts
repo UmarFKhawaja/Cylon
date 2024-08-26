@@ -1,13 +1,13 @@
 import {
   applyRule,
   CloseCurlyBracketRule,
+  Context,
   Input,
   InsignificantWhitespaceRule,
   makeAllRulesRule,
   makeZeroOrOneRule,
   ModelType,
   OpenCurlyBracketRule,
-  Output,
   Result,
   Rule
 } from '@cylon/common-library';
@@ -44,38 +44,38 @@ export const ReferenceRule: Rule = {
       )
     ));
   },
-  produce: (output: Output): void => {
-    output.assertModel(ModelType.IDENTIFIER);
+  produce: (context: Context): void => {
+    context.assertModel(ModelType.IDENTIFIER);
 
-    const name: Identifier = output.removeModel<Identifier>();
+    const name: Identifier = context.removeModel<Identifier>();
 
     let references: References;
 
-    if (!output.isEmpty) {
-      output.skipWhitespace();
+    if (!context.isEmpty) {
+      context.skipWhitespace();
 
-      output.assertOpenCurlyBracket();
+      context.assertOpenCurlyBracket();
 
-      output.removeChar();
+      context.removeChar();
 
-      output.skipWhitespace();
+      context.skipWhitespace();
 
-      references = output.hasModel(ModelType.REFERENCES)
-        ? output.removeModel<References>()
+      references = context.hasModel(ModelType.REFERENCES)
+        ? context.removeModel<References>()
         : new References();
 
-      output.skipWhitespace();
+      context.skipWhitespace();
 
-      output.assertCloseCurlyBracket();
+      context.assertCloseCurlyBracket();
 
-      output.removeChar();
+      context.removeChar();
     } else {
       references = new References();
     }
 
-    output.assertEmpty();
+    context.assertEmpty();
 
-    output.addModel(
+    context.addModel(
       new Reference(name, references),
       ModelType.REFERENCE
     );

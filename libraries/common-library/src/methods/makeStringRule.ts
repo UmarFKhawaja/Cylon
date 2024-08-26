@@ -1,4 +1,4 @@
-import { Input, Output, Result, Rule } from '../types';
+import { Context, Input, Result, Rule } from '../types';
 import { applyRule } from './applyRule';
 import { makeAllRulesRule } from './makeAllRulesRule';
 import { makeCharRule } from './makeCharRule';
@@ -22,14 +22,14 @@ export const makeStringRule: (value: string) => Rule = (value: string): Rule => 
 
       return result;
     },
-    produce: (output: Output): void => {
+    produce: (context: Context): void => {
       for (let i: number = 0; i < value.length; i++) {
-        if (output.removeChar() !== value[i]) {
+        if (context.removeChar() !== value[i]) {
           throw new Error('ProduceMatchStringError');
         }
       }
 
-      output.addString(value);
+      context.addString(value);
     }
   });
 };

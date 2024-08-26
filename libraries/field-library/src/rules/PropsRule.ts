@@ -1,6 +1,7 @@
 import {
   applyRule,
   CloseCurlyBracketRule,
+  Context,
   Input,
   InsignificantWhitespaceRule,
   makeAllRulesRule,
@@ -8,7 +9,6 @@ import {
   makeZeroOrMoreRule,
   ModelType,
   OpenCurlyBracketRule,
-  Output,
   Result,
   Rule
 } from '@cylon/common-library';
@@ -43,28 +43,28 @@ export const PropsRule: Rule = {
       CloseCurlyBracketRule
     ));
   },
-  produce: (output: Output): void => {
-    output.assertKeyword('props');
+  produce: (context: Context): void => {
+    context.assertKeyword('props');
 
-    output.removeKeyword();
+    context.removeKeyword();
 
-    output.skipWhitespace();
+    context.skipWhitespace();
 
-    output.assertOpenCurlyBracket();
+    context.assertOpenCurlyBracket();
 
-    output.removeChar();
+    context.removeChar();
 
     const fields: Field[] = [];
 
-    while (!output.isEmpty) {
-      output.skipWhitespace();
+    while (!context.isEmpty) {
+      context.skipWhitespace();
 
-      if (output.hasModel(ModelType.ATTRIBUTE)) {
-        const attribute: Attribute = output.removeModel<Attribute>();
+      if (context.hasModel(ModelType.ATTRIBUTE)) {
+        const attribute: Attribute = context.removeModel<Attribute>();
 
         fields.push(attribute);
-      } else if (output.hasModel(ModelType.METHOD)) {
-        const method: Method = output.removeModel<Method>();
+      } else if (context.hasModel(ModelType.METHOD)) {
+        const method: Method = context.removeModel<Method>();
 
         fields.push(method);
       } else {
@@ -72,13 +72,13 @@ export const PropsRule: Rule = {
       }
     }
 
-    output.assertCloseCurlyBracket();
+    context.assertCloseCurlyBracket();
 
-    output.removeChar();
+    context.removeChar();
 
-    output.assertEmpty();
+    context.assertEmpty();
 
-    output.addModel(
+    context.addModel(
       new Props(...fields),
       ModelType.PROPS
     );

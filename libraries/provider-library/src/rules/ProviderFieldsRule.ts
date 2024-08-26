@@ -1,12 +1,12 @@
 import {
   applyRule,
+  Context,
   Input,
   InsignificantWhitespaceRule,
   makeAllRulesRule,
   makeAnyRulesRule,
   makeZeroOrOneRule,
   ModelType,
-  Output,
   Result,
   Rule
 } from '@cylon/common-library';
@@ -53,28 +53,28 @@ export const ProviderFieldsRule: Rule = {
       VSPSubRule
     ));
   },
-  produce: (output: Output): void => {
+  produce: (context: Context): void => {
     let props: Props = new Props();
 
     let state: State = new State();
 
     let value: Value = new Value();
 
-    while (!output.isEmpty) {
-      output.skipWhitespace();
+    while (!context.isEmpty) {
+      context.skipWhitespace();
 
-      if (output.hasModel(ModelType.PROPS)) {
-        props = output.removeModel<Props>();
-      } else if (output.hasModel(ModelType.STATE)) {
-        state = output.removeModel<State>();
-      } else if (output.hasModel(ModelType.VALUE)) {
-        value = output.removeModel<Value>();
+      if (context.hasModel(ModelType.PROPS)) {
+        props = context.removeModel<Props>();
+      } else if (context.hasModel(ModelType.STATE)) {
+        state = context.removeModel<State>();
+      } else if (context.hasModel(ModelType.VALUE)) {
+        value = context.removeModel<Value>();
       }
     }
 
-    output.assertEmpty();
+    context.assertEmpty();
 
-    output.addModel(
+    context.addModel(
       new ProviderFields(props, state, value),
       ModelType.PROVIDER_FIELDS
     );

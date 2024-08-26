@@ -1,11 +1,11 @@
 import {
   applyRule,
+  Context,
   Input,
   InsignificantWhitespaceRule,
   makeAllRulesRule,
   makeZeroOrOneRule,
   ModelType,
-  Output,
   Result,
   Rule,
   SignificantWhitespaceRule
@@ -33,30 +33,30 @@ export const ComponentRule: Rule = {
       makeZeroOrOneRule(ComponentBodyRule)
     ));
   },
-  produce: (output: Output): void => {
-    output.assertKeyword('component');
+  produce: (context: Context): void => {
+    context.assertKeyword('component');
 
-    output.removeKeyword();
+    context.removeKeyword();
 
-    output.assertWhitespace();
+    context.assertWhitespace();
 
-    output.removeWhitespace();
+    context.removeWhitespace();
 
-    output.skipWhitespace();
+    context.skipWhitespace();
 
-    output.assertModel(ModelType.COMPONENT_NAME);
+    context.assertModel(ModelType.COMPONENT_NAME);
 
-    const componentName: ComponentName = output.removeModel<ComponentName>();
+    const componentName: ComponentName = context.removeModel<ComponentName>();
 
-    output.skipWhitespace();
+    context.skipWhitespace();
 
-    const componentBody: ComponentBody = output.hasModel(ModelType.COMPONENT_BODY)
-      ? output.removeModel<ComponentBody>()
+    const componentBody: ComponentBody = context.hasModel(ModelType.COMPONENT_BODY)
+      ? context.removeModel<ComponentBody>()
       : new ComponentBody(new Props(), new Components());
 
-    output.assertEmpty();
+    context.assertEmpty();
 
-    output.addModel(
+    context.addModel(
       new Component(componentName, componentBody),
       ModelType.COMPONENT
     );

@@ -1,11 +1,11 @@
 import {
   applyRule,
+  Context,
   Input,
   InsignificantWhitespaceRule,
   makeAllRulesRule,
   makeZeroOrOneRule,
   ModelType,
-  Output,
   Result,
   Rule,
   SignificantWhitespaceRule
@@ -32,32 +32,32 @@ export const LayoutRule: Rule = {
       makeZeroOrOneRule(LayoutBodyRule)
     ));
   },
-  produce: (output: Output): void => {
-    output.assertKeyword('layout');
+  produce: (context: Context): void => {
+    context.assertKeyword('layout');
 
-    output.removeKeyword();
+    context.removeKeyword();
 
-    output.assertWhitespace();
+    context.assertWhitespace();
 
-    output.removeWhitespace();
+    context.removeWhitespace();
 
-    output.skipWhitespace();
+    context.skipWhitespace();
 
-    output.assertModel(ModelType.LAYOUT_NAME);
+    context.assertModel(ModelType.LAYOUT_NAME);
 
-    const layoutName: LayoutName = output.removeModel<LayoutName>();
+    const layoutName: LayoutName = context.removeModel<LayoutName>();
 
-    output.skipWhitespace();
+    context.skipWhitespace();
 
-    const layoutBody: LayoutBody = output.hasModel(ModelType.LAYOUT_BODY)
-      ? output.removeModel<LayoutBody>()
+    const layoutBody: LayoutBody = context.hasModel(ModelType.LAYOUT_BODY)
+      ? context.removeModel<LayoutBody>()
       : new LayoutBody(
         new References()
       );
 
-    output.assertEmpty();
+    context.assertEmpty();
 
-    output.addModel(
+    context.addModel(
       new Layout(layoutName, layoutBody),
       ModelType.LAYOUT
     );

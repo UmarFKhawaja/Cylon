@@ -2,13 +2,13 @@ import {
   applyRule,
   CloseParenthesisRule,
   ColonRule,
+  Context,
   Input,
   InsignificantWhitespaceRule,
   makeAllRulesRule,
   makeZeroOrOneRule,
   ModelType,
   OpenParenthesisRule,
-  Output,
   Result,
   Rule
 } from '@cylon/common-library';
@@ -39,40 +39,40 @@ export const MethodRule: Rule = {
       TypeNameRule
     ));
   },
-  produce: (output: Output): void => {
-    output.assertModel(ModelType.IDENTIFIER);
+  produce: (context: Context): void => {
+    context.assertModel(ModelType.IDENTIFIER);
 
-    const identifier: Identifier = output.removeModel<Identifier>();
+    const identifier: Identifier = context.removeModel<Identifier>();
 
-    output.skipWhitespace();
+    context.skipWhitespace();
 
-    output.assertOpenParenthesis();
+    context.assertOpenParenthesis();
 
-    output.removeChar();
+    context.removeChar();
 
-    output.skipWhitespace();
+    context.skipWhitespace();
 
-    const params: Params = output.hasModel(ModelType.PARAMS)
-      ? output.removeModel<Params>()
+    const params: Params = context.hasModel(ModelType.PARAMS)
+      ? context.removeModel<Params>()
       : new Params();
 
-    output.skipWhitespace();
+    context.skipWhitespace();
 
-    output.assertCloseParenthesis();
+    context.assertCloseParenthesis();
 
-    output.removeChar();
+    context.removeChar();
 
-    output.assertColon();
+    context.assertColon();
 
-    output.removeChar();
+    context.removeChar();
 
-    output.skipWhitespace();
+    context.skipWhitespace();
 
-    output.assertModel(ModelType.TYPE_NAME);
+    context.assertModel(ModelType.TYPE_NAME);
 
-    const typeName: TypeName = output.removeModel<TypeName>();
+    const typeName: TypeName = context.removeModel<TypeName>();
 
-    output.addModel(
+    context.addModel(
       new Method(identifier, params, typeName),
       ModelType.METHOD
     );

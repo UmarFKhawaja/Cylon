@@ -1,11 +1,11 @@
 import {
   applyRule,
+  Context,
   Input,
   InsignificantWhitespaceRule,
   makeAllRulesRule,
   makeZeroOrMoreRule,
   ModelType,
-  Output,
   Result,
   Rule
 } from '@cylon/common-library';
@@ -28,14 +28,14 @@ export const ComponentsRule: Rule = {
       )
     ));
   },
-  produce: (output: Output): void => {
+  produce: (context: Context): void => {
     const components: Component[] = [];
 
-    while (!output.isEmpty) {
-      output.skipWhitespace();
+    while (!context.isEmpty) {
+      context.skipWhitespace();
 
-      if (output.hasModel(ModelType.COMPONENT)) {
-        const component: Component = output.removeModel<Component>();
+      if (context.hasModel(ModelType.COMPONENT)) {
+        const component: Component = context.removeModel<Component>();
 
         components.push(component);
       } else {
@@ -43,9 +43,9 @@ export const ComponentsRule: Rule = {
       }
     }
 
-    output.assertEmpty();
+    context.assertEmpty();
 
-    output.addModel(
+    context.addModel(
       new Components(...components),
       ModelType.COMPONENTS
     );

@@ -1,4 +1,4 @@
-import { Output } from '../types';
+import { Context } from '../types';
 
-export function doNothing(output: Output): void {
+export function doNothing(context: Context): void {
 }

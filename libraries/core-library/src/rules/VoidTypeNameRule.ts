@@ -1,4 +1,4 @@
-import { applyRule, Input, makeStringRule, ModelType, Output, Result, Rule } from '@cylon/common-library';
+import { applyRule, Context, Input, makeStringRule, ModelType, Result, Rule } from '@cylon/common-library';
 import { VoidTypeName } from '../models';
 
 // VoidTypeName:
@@ -12,14 +12,14 @@ export const VoidTypeNameRule: Rule = {
   match: (input: Input): Result => {
     return applyRule(input, makeStringRule('Void'));
   },
-  produce: (output: Output): void => {
-    output.assertString(['Void']);
+  produce: (context: Context): void => {
+    context.assertString(['Void']);
 
-    output.removeString();
+    context.removeString();
 
-    output.assertEmpty();
+    context.assertEmpty();
 
-    output.addModel(
+    context.addModel(
       new VoidTypeName(),
       ModelType.TYPE_NAME
     );

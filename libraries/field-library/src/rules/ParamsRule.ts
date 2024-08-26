@@ -1,12 +1,12 @@
 import {
   applyRule,
   CommaRule,
+  Context,
   Input,
   InsignificantWhitespaceRule,
   makeAllRulesRule,
   makeZeroOrMoreRule,
   ModelType,
-  Output,
   Result,
   Rule
 } from '@cylon/common-library';
@@ -34,36 +34,36 @@ export const ParamsRule: Rule = {
       )
     ));
   },
-  produce: (output: Output): void => {
+  produce: (context: Context): void => {
     const params: Param[] = [];
 
     {
-      output.assertModel(ModelType.PARAM);
+      context.assertModel(ModelType.PARAM);
 
-      const param: Param = output.removeModel<Param>();
-
-      params.push(param);
-    }
-
-    while (!output.isEmpty) {
-      output.skipWhitespace();
-
-      output.assertComma();
-
-      output.removeChar();
-
-      output.skipWhitespace();
-
-      output.assertModel(ModelType.PARAM);
-
-      const param: Param = output.removeModel<Param>();
+      const param: Param = context.removeModel<Param>();
 
       params.push(param);
     }
 
-    output.assertEmpty();
+    while (!context.isEmpty) {
+      context.skipWhitespace();
 
-    output.addModel(
+      context.assertComma();
+
+      context.removeChar();
+
+      context.skipWhitespace();
+
+      context.assertModel(ModelType.PARAM);
+
+      const param: Param = context.removeModel<Param>();
+
+      params.push(param);
+    }
+
+    context.assertEmpty();
+
+    context.addModel(
       new Params(...params),
       ModelType.PARAMS
     );

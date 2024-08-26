@@ -1,11 +1,11 @@
 import {
   applyRule,
+  Context,
   Input,
   InsignificantWhitespaceRule,
   makeAllRulesRule,
   makeOneOrMoreRule,
   ModelType,
-  Output,
   Result,
   Rule
 } from '@cylon/common-library';
@@ -37,26 +37,26 @@ export const ReferencesRule: Rule = {
       ))
     );
   },
-  produce: (output: Output): void => {
+  produce: (context: Context): void => {
     const references: Reference[] = [];
 
-    while (!output.isEmpty) {
-      output.skipWhitespace();
+    while (!context.isEmpty) {
+      context.skipWhitespace();
 
-      if (output.hasCloseCurlyBracket()) {
+      if (context.hasCloseCurlyBracket()) {
         break;
       }
 
-      output.assertModel(ModelType.REFERENCE);
+      context.assertModel(ModelType.REFERENCE);
 
-      const reference: Reference = output.removeModel<Reference>();
+      const reference: Reference = context.removeModel<Reference>();
 
       references.push(reference);
     }
 
-    output.assertEmpty();
+    context.assertEmpty();
 
-    output.addModel(
+    context.addModel(
       new References(...references),
       ModelType.REFERENCES
     );

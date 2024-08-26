@@ -1,11 +1,11 @@
 import {
   applyRule,
+  Context,
   Input,
   InsignificantWhitespaceRule,
   makeAllRulesRule,
   makeZeroOrOneRule,
   ModelType,
-  Output,
   Result,
   Rule,
   SignificantWhitespaceRule
@@ -32,34 +32,34 @@ export const ProviderRule: Rule = {
       makeZeroOrOneRule(ProviderBodyRule)
     ));
   },
-  produce: (output: Output): void => {
-    output.assertKeyword('provider');
+  produce: (context: Context): void => {
+    context.assertKeyword('provider');
 
-    output.removeKeyword();
+    context.removeKeyword();
 
-    output.assertWhitespace();
+    context.assertWhitespace();
 
-    output.removeWhitespace();
+    context.removeWhitespace();
 
-    output.skipWhitespace();
+    context.skipWhitespace();
 
-    output.assertModel(ModelType.PROVIDER_NAME);
+    context.assertModel(ModelType.PROVIDER_NAME);
 
-    const providerName: ProviderName = output.removeModel<ProviderName>();
+    const providerName: ProviderName = context.removeModel<ProviderName>();
 
-    output.skipWhitespace();
+    context.skipWhitespace();
 
-    const providerBody: ProviderBody = output.hasModel(ModelType.PROVIDER_BODY)
-      ? output.removeModel<ProviderBody>()
+    const providerBody: ProviderBody = context.hasModel(ModelType.PROVIDER_BODY)
+      ? context.removeModel<ProviderBody>()
       : new ProviderBody(
         new Props(),
         new State(),
         new Value()
       );
 
-    output.assertEmpty();
+    context.assertEmpty();
 
-    output.addModel(
+    context.addModel(
       new Provider(providerName, providerBody),
       ModelType.PROVIDER
     );

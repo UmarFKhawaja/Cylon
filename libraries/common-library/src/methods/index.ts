@@ -10,3 +10,4 @@ export * from './makeStringRule';
 export * from './makeZeroOrMoreRule';
 export * from './makeZeroOrOneRule';
 export * from './peekChar';
+export * from './readStream';

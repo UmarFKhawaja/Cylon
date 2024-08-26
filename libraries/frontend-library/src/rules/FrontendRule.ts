@@ -1,12 +1,12 @@
 import { App, AppRule } from '@cylon/app-library';
 import {
   applyRule,
+  Context,
   Input,
   InsignificantWhitespaceRule,
   makeAllRulesRule,
   makeZeroOrOneRule,
   ModelType,
-  Output,
   Result,
   Rule
 } from '@cylon/common-library';
@@ -36,30 +36,30 @@ export const FrontendRule: Rule = {
       InsignificantWhitespaceRule
     ));
   },
-  produce: (output: Output): void => {
+  produce: (context: Context): void => {
     const widgets: Widget[] = [];
 
-    output.skipWhitespace();
+    context.skipWhitespace();
 
-    if (output.hasModel(ModelType.WIDGETS)) {
-      widgets.push(...output.removeModel<Widgets>());
+    if (context.hasModel(ModelType.WIDGETS)) {
+      widgets.push(...context.removeModel<Widgets>());
     }
 
-    output.skipWhitespace();
+    context.skipWhitespace();
 
-    output.assertModel(ModelType.APP);
+    context.assertModel(ModelType.APP);
 
-    const app: App = output.removeModel<App>();
+    const app: App = context.removeModel<App>();
 
-    output.skipWhitespace();
+    context.skipWhitespace();
 
-    if (output.hasModel(ModelType.WIDGETS)) {
-      widgets.push(...output.removeModel<Widgets>());
+    if (context.hasModel(ModelType.WIDGETS)) {
+      widgets.push(...context.removeModel<Widgets>());
     }
 
-    output.skipWhitespace();
+    context.skipWhitespace();
 
-    output.assertEmpty();
+    context.assertEmpty();
 
     const routes: Route[] = widgets
       .filter((widget: Widget): boolean => widget instanceof Route)
@@ -77,7 +77,7 @@ export const FrontendRule: Rule = {
       .filter((widget: Widget): boolean => widget instanceof Component)
       .map((widget: Widget): Component => widget as Component);
 
-    output.addModel(
+    context.addModel(
       new Frontend(
         app,
         new Routes(...routes),

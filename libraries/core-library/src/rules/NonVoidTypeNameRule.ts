@@ -1,13 +1,13 @@
 import {
   applyRule,
   CloseSquareBracketRule,
+  Context,
   Input,
   makeAllRulesRule,
   makeAnyRulesRule,
   makeStringRule,
   ModelType,
   OpenSquareBracketRule,
-  Output,
   Result,
   Rule
 } from '@cylon/common-library';
@@ -39,61 +39,61 @@ export const NonVoidTypeNameRule: Rule = {
       IdentifierRule
     ));
   },
-  produce: (output: Output): void => {
-    if (output.length === 1) {
-      if (output.hasString(['Object', 'Date', 'String', 'Number', 'Boolean'])) {
-        produceNonArrayBaseTypeNameToken(output);
-      } else if (output.hasModel(ModelType.IDENTIFIER)) {
-        produceNonArrayCustomTypeNameToken(output);
+  produce: (context: Context): void => {
+    if (context.length === 1) {
+      if (context.hasString(['Object', 'Date', 'String', 'Number', 'Boolean'])) {
+        produceNonArrayBaseTypeNameToken(context);
+      } else if (context.hasModel(ModelType.IDENTIFIER)) {
+        produceNonArrayCustomTypeNameToken(context);
       } else {
-        output.throwError('Unsupported');
+        context.throwError('Unsupported');
       }
-    } else if (output.length === 3) {
-      produceArrayTypeNameToken(output);
+    } else if (context.length === 3) {
+      produceArrayTypeNameToken(context);
     } else {
-      output.throwError('Unsupported');
+      context.throwError('Unsupported');
     }
   }
 };
 
-function produceNonArrayBaseTypeNameToken(output: Output) {
-  const dataType: string = output.removeString();
+function produceNonArrayBaseTypeNameToken(context: Context) {
+  const dataType: string = context.removeString();
 
-  output.assertEmpty();
+  context.assertEmpty();
 
-  output.addModel(
+  context.addModel(
     new NonVoidTypeName(dataType),
     ModelType.TYPE_NAME
   );
 }
 
-function produceNonArrayCustomTypeNameToken(output: Output) {
-  const identifier: Identifier = output.removeModel<Identifier>();
+function produceNonArrayCustomTypeNameToken(context: Context) {
+  const identifier: Identifier = context.removeModel<Identifier>();
 
-  output.assertEmpty();
+  context.assertEmpty();
 
-  output.addModel(
+  context.addModel(
     new NonVoidTypeName(identifier.value),
     ModelType.TYPE_NAME
   );
 }
 
-function produceArrayTypeNameToken(output: Output) {
-  output.assertOpenSquareBracket();
+function produceArrayTypeNameToken(context: Context) {
+  context.assertOpenSquareBracket();
 
-  output.removeChar();
+  context.removeChar();
 
-  output.assertModel(ModelType.TYPE_NAME);
+  context.assertModel(ModelType.TYPE_NAME);
 
-  const typeName: NonVoidTypeName = output.removeModel<NonVoidTypeName>();
+  const typeName: NonVoidTypeName = context.removeModel<NonVoidTypeName>();
 
-  output.assertCloseSquareBracket();
+  context.assertCloseSquareBracket();
 
-  output.removeChar();
+  context.removeChar();
 
-  output.assertEmpty();
+  context.assertEmpty();
 
-  output.addModel(
+  context.addModel(
     new NonVoidTypeName(`[${typeName.dataType}]`),
     ModelType.TYPE_NAME
   );

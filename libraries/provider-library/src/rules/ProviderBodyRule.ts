@@ -1,12 +1,12 @@
 import {
   applyRule,
   CloseCurlyBracketRule,
+  Context,
   Input,
   InsignificantWhitespaceRule,
   makeAllRulesRule,
   ModelType,
   OpenCurlyBracketRule,
-  Output,
   Result,
   Rule
 } from '@cylon/common-library';
@@ -30,26 +30,26 @@ export const ProviderBodyRule: Rule = {
       CloseCurlyBracketRule
     ));
   },
-  produce: (output: Output): void => {
-    output.assertOpenCurlyBracket();
+  produce: (context: Context): void => {
+    context.assertOpenCurlyBracket();
 
-    output.removeChar();
+    context.removeChar();
 
-    output.skipWhitespace();
+    context.skipWhitespace();
 
-    output.assertModel(ModelType.PROVIDER_FIELDS);
+    context.assertModel(ModelType.PROVIDER_FIELDS);
 
-    const fields: ProviderFields = output.removeModel<ProviderFields>();
+    const fields: ProviderFields = context.removeModel<ProviderFields>();
 
-    output.skipWhitespace();
+    context.skipWhitespace();
 
-    output.assertCloseCurlyBracket();
+    context.assertCloseCurlyBracket();
 
-    output.removeChar();
+    context.removeChar();
 
-    output.assertEmpty();
+    context.assertEmpty();
 
-    output.addModel(
+    context.addModel(
       new ProviderBody(fields.props, fields.state, fields.value),
       ModelType.PROVIDER_BODY
     );

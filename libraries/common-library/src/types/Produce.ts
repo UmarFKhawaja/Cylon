@@ -1,3 +1,3 @@
-import { Output } from './Output';
+import { Context } from './Context';
 
-export type Produce = (output: Output) => void;
+export type Produce = (context: Context) => void;

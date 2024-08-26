@@ -1,6 +1,6 @@
 import { bold, green, italic, red, strikethrough, yellow } from 'chalk';
 import dayjs from 'dayjs';
-import { FailureResult, Input, Output, Result, Rule, SuccessResult } from '../types';
+import { Context, FailureResult, Input, Log, Result, Rule, SuccessResult } from '../types';
 
 interface MessageInput {
   char: string;
@@ -57,19 +57,19 @@ export function applyRule(input: Input, rule: Rule): Result {
   const actions: Actions | null = rule.options.printLogs ? parseAction(rule.name) : null;
 
   try {
-    if (actions) console.debug(formatMessage(actions.start(input), input.level));
+    if (actions) Log.debug(formatMessage(actions.start(input), input.level));
 
     const result: Result = executeRule(input, rule);
 
     if (result.hasSucceeded) {
-      if (actions) console.info(formatMessage(actions.success(input), input.level));
+      if (actions) Log.info(formatMessage(actions.success(input), input.level));
     } else {
-      if (actions?.failure) console.error(formatMessage(actions.failure(input, new Error((result as FailureResult).message)), input.level));
+      if (actions?.failure) Log.error(formatMessage(actions.failure(input, new Error((result as FailureResult).message)), input.level));
     }
 
     return result;
   } catch (error: unknown) {
-    if (actions?.failure) console.error(formatMessage(actions.failure(input, error as Error), input.level));
+    if (actions?.failure) Log.error(formatMessage(actions.failure(input, error as Error), input.level));
 
     throw error;
   }
@@ -159,7 +159,7 @@ function executeRule(input: Input, rule: Rule): Result {
   const result: Result = rule.match(input);
 
   if (result.hasSucceeded) {
-    rule.produce(new Output(rule, (result as SuccessResult).queue));
+    rule.produce(new Context(rule, (result as SuccessResult).queue));
   } else {
     input.setIndex(index);
   }

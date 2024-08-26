@@ -1,12 +1,12 @@
 import {
   applyRule,
+  Context,
   Input,
   LetterOrDigitRule,
   LetterRule,
   makeAllRulesRule,
   makeZeroOrMoreRule,
   ModelType,
-  Output,
   Result,
   Rule
 } from '@cylon/common-library';
@@ -26,14 +26,14 @@ export const IdentifierRule: Rule = {
       makeZeroOrMoreRule(LetterOrDigitRule)
     ));
   },
-  produce: (output: Output): void => {
+  produce: (context: Context): void => {
     let value: string = '';
 
-    while (!output.isEmpty) {
-      value += output.removeChar();
+    while (!context.isEmpty) {
+      value += context.removeChar();
     }
 
-    output.addModel(
+    context.addModel(
       new Identifier(value),
       ModelType.IDENTIFIER
     );

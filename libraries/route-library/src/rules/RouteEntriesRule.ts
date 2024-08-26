@@ -1,10 +1,10 @@
 import {
   applyRule,
+  Context,
   Input,
   makeAllRulesRule,
   makeOneOrMoreRule,
   ModelType,
-  Output,
   Result,
   Rule
 } from '@cylon/common-library';
@@ -24,20 +24,20 @@ export const RouteEntriesRule: Rule = {
       makeOneOrMoreRule(RouteEntryRule)
     ));
   },
-  produce: (output: Output): void => {
+  produce: (context: Context): void => {
     const routeEntries: RouteEntry[] = [];
 
-    while (!output.isEmpty) {
-      output.assertModel(ModelType.ROUTE_ENTRY);
+    while (!context.isEmpty) {
+      context.assertModel(ModelType.ROUTE_ENTRY);
 
-      const routeEntry: RouteEntry = output.removeModel<RouteEntry>();
+      const routeEntry: RouteEntry = context.removeModel<RouteEntry>();
 
       routeEntries.push(routeEntry);
     }
 
-    output.assertEmpty();
+    context.assertEmpty();
 
-    output.addModel(
+    context.addModel(
       new RouteEntries(
         ...routeEntries
       ),

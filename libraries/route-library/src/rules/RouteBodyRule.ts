@@ -1,12 +1,12 @@
 import {
   applyRule,
   CloseCurlyBracketRule,
+  Context,
   Input,
   InsignificantWhitespaceRule,
   makeAllRulesRule,
   ModelType,
   OpenCurlyBracketRule,
-  Output,
   Result,
   Rule
 } from '@cylon/common-library';
@@ -30,26 +30,26 @@ export const RouteBodyRule: Rule = {
       CloseCurlyBracketRule
     ));
   },
-  produce: (output: Output): void => {
-    output.assertOpenCurlyBracket();
+  produce: (context: Context): void => {
+    context.assertOpenCurlyBracket();
 
-    output.removeChar();
+    context.removeChar();
 
-    output.skipWhitespace();
+    context.skipWhitespace();
 
-    output.assertModel(ModelType.REFERENCES);
+    context.assertModel(ModelType.REFERENCES);
 
-    const references: References = output.removeModel<References>();
+    const references: References = context.removeModel<References>();
 
-    output.skipWhitespace();
+    context.skipWhitespace();
 
-    output.assertCloseCurlyBracket();
+    context.assertCloseCurlyBracket();
 
-    output.removeChar();
+    context.removeChar();
 
-    output.assertEmpty();
+    context.assertEmpty();
 
-    output.addModel(
+    context.addModel(
       new RouteBody(references),
       ModelType.ROUTE_BODY
     );
