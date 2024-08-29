@@ -1,0 +1,21 @@
+{
+  "name": "layout-block-library",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libraries/layout-block-library/src",
+  "projectType": "library",
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": [
+        "{options.outputPath}"
+      ],
+      "options": {
+        "outputPath": "dist/libraries/layout-block-library",
+        "main": "libraries/layout-block-library/src/index.ts",
+        "tsConfig": "libraries/layout-block-library/tsconfig.lib.json",
+        "assets": []
+      }
+    }
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "name": "app-block-library",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libraries/app-block-library/src",
+  "projectType": "library",
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": [
+        "{options.outputPath}"
+      ],
+      "options": {
+        "outputPath": "dist/libraries/app-block-library",
+        "main": "libraries/app-block-library/src/index.ts",
+        "tsConfig": "libraries/app-block-library/tsconfig.lib.json",
+        "assets": []
+      }
+    }
+  }
+}

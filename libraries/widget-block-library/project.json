@@ -1,0 +1,21 @@
+{
+  "name": "widget-block-library",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libraries/widget-block-library/src",
+  "projectType": "library",
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": [
+        "{options.outputPath}"
+      ],
+      "options": {
+        "outputPath": "dist/libraries/widget-block-library",
+        "main": "libraries/widget-block-library/src/index.ts",
+        "tsConfig": "libraries/widget-block-library/tsconfig.lib.json",
+        "assets": []
+      }
+    }
+  }
+}

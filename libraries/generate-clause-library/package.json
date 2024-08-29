@@ -1,0 +1,19 @@
+{
+  "name": "@cylon/generate-clause-library",
+  "version": "0.0.0",
+  "dependencies": {
+    "@cylon/app-block-library": "*",
+    "@cylon/common-library": "*",
+    "@cylon/component-block-library": "*",
+    "@cylon/core-library": "*",
+    "@cylon/layout-block-library": "*",
+    "@cylon/provider-block-library": "*",
+    "@cylon/route-block-library": "*",
+    "@cylon/widget-block-library": "*",
+    "tslib": "*"
+  },
+  "type": "commonjs",
+  "main": "./src/index.js",
+  "typings": "./src/index.d.ts",
+  "private": true
+}

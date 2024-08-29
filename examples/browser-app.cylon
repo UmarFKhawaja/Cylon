@@ -1,159 +1,168 @@
-app BrowserApp {
-  routes {
-    HomeRoute
-    SignUpRoute
-    SignInRoute
-    SignOutRoute
-    ActivateAccountRoute
-    RecoverAccountRoute
-    ResetPasswordRoute
-    ChangePasswordRoute
-    SetPasswordRoute
-    UnsetPasswordRoute
-  }
-}
+import AxiosClient from 'axios'
+import { ApolloClient } from '@apollo/client'
 
-route HomeRoute {
-  HeroLayout {
-    HomeFeature
+generate BrowserApp {
+  app MainApp {
+    routes {
+      HomeRoute
+      SignUpRoute
+      SignInRoute
+      SignOutRoute
+      ActivateAccountRoute
+      RecoverAccountRoute
+      ResetPasswordRoute
+      ChangePasswordRoute
+      SetPasswordRoute
+      UnsetPasswordRoute
+    }
   }
-}
 
-route SignUpRoute {
-  HeroLayout {
-    SignUpFeature
+  route HomeRoute {
+    HeroLayout {
+      HomeFeature
+    }
   }
-}
 
-route SignInRoute {
-  HeroLayout {
-    SignInFeature
+  route SignUpRoute {
+    HeroLayout {
+      SignUpFeature
+    }
   }
-}
 
-route SignOutRoute {
-  HeroLayout {
-    SignOutFeature
+  route SignInRoute {
+    HeroLayout {
+      SignInFeature
+    }
   }
-}
 
-route ActivateAccountRoute {
-  HeroLayout {
-    ActivateAccountFeature
+  route SignOutRoute {
+    HeroLayout {
+      SignOutFeature
+    }
   }
-}
 
-route RecoverAccountRoute {
-  HeroLayout {
-    RecoverAccountFeature
+  route ActivateAccountRoute {
+    HeroLayout {
+      ActivateAccountFeature
+    }
   }
-}
 
-route ResetPasswordRoute {
-  HeroLayout {
-    ResetPasswordFeature
+  route RecoverAccountRoute {
+    HeroLayout {
+      RecoverAccountFeature
+    }
   }
-}
 
-route ChangePasswordRoute {
-  HeroLayout {
-    ChangePasswordFeature
+  route ResetPasswordRoute {
+    HeroLayout {
+      ResetPasswordFeature
+    }
   }
-}
 
-route SetPasswordRoute {
-  HeroLayout {
-    SetPasswordFeature
+  route ChangePasswordRoute {
+    HeroLayout {
+      ChangePasswordFeature
+    }
   }
-}
 
-route UnsetPasswordRoute {
-  HeroLayout {
-    UnsetPasswordFeature
+  route SetPasswordRoute {
+    HeroLayout {
+      SetPasswordFeature
+    }
   }
-}
 
-layout HeroLayout {
-  AxiosClientProvider {
-    ApolloClientProvider {
-      TokenProvider {
-        ProfileProvider {
-          ThemeProvider {
-            outlet
+  route UnsetPasswordRoute {
+    HeroLayout {
+      UnsetPasswordFeature
+    }
+  }
+
+  layout HeroLayout {
+    AxiosClientProvider {
+      ApolloClientProvider {
+        TokenProvider {
+          ProfileProvider {
+            ThemeProvider {
+              outlet
+            }
           }
         }
       }
     }
   }
-}
 
-provider AxiosClientProvider {
-  state {
+  provider AxiosClientProvider {
+    state {
+      client: AxiosClient
+    }
+
+    value {
+    }
   }
 
-  value {
-  }
-}
+  provider ApolloClientProvider {
+    state {
+      client: ApolloClient
+    }
 
-provider ApolloClientProvider {
-  state {
-  }
-
-  value {
-  }
-}
-
-provider TokenProvider {
-  state {
+    value {
+    }
   }
 
-  value {
-  }
-}
+  provider TokenProvider {
+    state {
+      token: String
+    }
 
-provider ProfileProvider {
-  state {
-  }
-
-  value {
-  }
-}
-
-provider ThemeProvider {
-  state {
+    value {
+    }
   }
 
-  value {
+  provider ProfileProvider {
+    state {
+      profile: Profile
+    }
+
+    value {
+    }
   }
-}
+
+  provider ThemeProvider {
+    state {
+    }
+
+    value {
+    }
+  }
 
 
-component HomeFeature {
-}
+  component HomeFeature {
+  }
 
-component SignUpFeature {
-}
+  component SignUpFeature {
+  }
 
-component SignInFeature {
-}
+  component SignInFeature {
+  }
 
-component SignOutFeature {
-}
+  component SignOutFeature {
+  }
 
-component ActivateAccountFeature {
-}
+  component ActivateAccountFeature {
+  }
 
-component RecoverAccountFeature {
-}
+  component RecoverAccountFeature {
+  }
 
-component ResetPasswordFeature {
-}
+  component ResetPasswordFeature {
+  }
 
-component ChangePasswordFeature {
-}
+  component ChangePasswordFeature {
+  }
 
-component SetPasswordFeature {
-}
+  component SetPasswordFeature {
+  }
 
-component UnsetPasswordFeature {
+  component UnsetPasswordFeature {
+  }
 }

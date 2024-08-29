@@ -1,0 +1,14 @@
+{
+  "name": "@cylon/component-block-library",
+  "version": "0.0.0",
+  "dependencies": {
+    "@cylon/common-library": "*",
+    "@cylon/core-library": "*",
+    "@cylon/field-block-library": "*",
+    "tslib": "*"
+  },
+  "type": "commonjs",
+  "main": "./src/index.js",
+  "typings": "./src/index.d.ts",
+  "private": true
+}

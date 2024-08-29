@@ -1,0 +1,14 @@
+{
+  "name": "@cylon/frontend-spec-library",
+  "version": "0.0.0",
+  "dependencies": {
+    "@cylon/common-library": "*",
+    "@cylon/generate-clause-library": "*",
+    "@cylon/import-clause-library": "*",
+    "tslib": "*"
+  },
+  "type": "commonjs",
+  "main": "./src/index.js",
+  "typings": "./src/index.d.ts",
+  "private": true
+}

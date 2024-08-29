@@ -1,0 +1,21 @@
+{
+  "name": "provider-block-library",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libraries/provider-block-library/src",
+  "projectType": "library",
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": [
+        "{options.outputPath}"
+      ],
+      "options": {
+        "outputPath": "dist/libraries/provider-block-library",
+        "main": "libraries/provider-block-library/src/index.ts",
+        "tsConfig": "libraries/provider-block-library/tsconfig.lib.json",
+        "assets": []
+      }
+    }
+  }
+}

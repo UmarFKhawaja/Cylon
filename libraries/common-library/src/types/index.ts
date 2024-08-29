@@ -12,4 +12,5 @@ export * from './Result';
 export * from './Rule';
 export * from './RuleOptions';
 export * from './Stack';
+export * from './Template';
 export * from './Token';

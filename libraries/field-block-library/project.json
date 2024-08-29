@@ -1,0 +1,21 @@
+{
+  "name": "field-block-library",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libraries/field-block-library/src",
+  "projectType": "library",
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": [
+        "{options.outputPath}"
+      ],
+      "options": {
+        "outputPath": "dist/libraries/field-block-library",
+        "main": "libraries/field-block-library/src/index.ts",
+        "tsConfig": "libraries/field-block-library/tsconfig.lib.json",
+        "assets": []
+      }
+    }
+  }
+}

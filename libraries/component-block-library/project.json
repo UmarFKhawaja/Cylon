@@ -1,0 +1,21 @@
+{
+  "name": "component-block-library",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libraries/component-block-library/src",
+  "projectType": "library",
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": [
+        "{options.outputPath}"
+      ],
+      "options": {
+        "outputPath": "dist/libraries/component-block-library",
+        "main": "libraries/component-block-library/src/index.ts",
+        "tsConfig": "libraries/component-block-library/tsconfig.lib.json",
+        "assets": []
+      }
+    }
+  }
+}

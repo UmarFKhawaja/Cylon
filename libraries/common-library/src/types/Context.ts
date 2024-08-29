@@ -90,12 +90,8 @@ export class Context {
     return this.has(() => this.hasCharToken(' ', '\t', '\n', '\r'), `Produce${this._rule.name}WhitespaceNotFoundError`);
   }
 
-  hasColon(): boolean {
-    return this.has(() => this.hasCharToken(':'), `Produce${this._rule.name}ColonNotFoundError`);
-  }
-
-  hasComma(): boolean {
-    return this.has(() => this.hasCharToken(','), `Produce${this._rule.name}CommaNotFoundError`);
+  hasChar(value: string): boolean {
+    return this.has(() => this.hasCharToken(value), `Produce${this._rule.name}CharNotFoundError`);
   }
 
   hasOpenCurlyBracket(): boolean {
@@ -150,12 +146,8 @@ export class Context {
     this.assert(() => this.hasWhitespace(), `Produce${this._rule.name}WhitespaceNotFoundError`);
   }
 
-  assertColon(): void {
-    this.assert(() => this.hasColon(), `Produce${this._rule.name}ColonNotFoundError`);
-  }
-
-  assertComma(): void {
-    this.assert(() => this.hasComma(), `Produce${this._rule.name}CommaNotFoundError`);
+  assertChar(value: string): void {
+    this.assert(() => this.hasChar(value), `Produce${this._rule.name}CharNotFoundError`);
   }
 
   assertOpenCurlyBracket(): void {

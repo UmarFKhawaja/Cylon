@@ -19,35 +19,41 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@cylon/app-library": [
-        "libraries/app-library/src/index.ts"
+      "@cylon/app-block-library": [
+        "libraries/app-block-library/src/index.ts"
       ],
       "@cylon/common-library": [
         "libraries/common-library/src/index.ts"
       ],
-      "@cylon/component-library": [
-        "libraries/component-library/src/index.ts"
+      "@cylon/component-block-library": [
+        "libraries/component-block-library/src/index.ts"
       ],
       "@cylon/core-library": [
         "libraries/core-library/src/index.ts"
       ],
-      "@cylon/field-library": [
-        "libraries/field-library/src/index.ts"
+      "@cylon/field-block-library": [
+        "libraries/field-block-library/src/index.ts"
       ],
-      "@cylon/layout-library": [
-        "libraries/layout-library/src/index.ts"
+      "@cylon/generate-clause-library": [
+        "libraries/generate-clause-library/src/index.ts"
       ],
-      "@cylon/frontend-library": [
-        "libraries/frontend-library/src/index.ts"
+      "@cylon/import-clause-library": [
+        "libraries/import-clause-library/src/index.ts"
       ],
-      "@cylon/provider-library": [
-        "libraries/provider-library/src/index.ts"
+      "@cylon/layout-block-library": [
+        "libraries/layout-block-library/src/index.ts"
       ],
-      "@cylon/route-library": [
-        "libraries/route-library/src/index.ts"
+      "@cylon/frontend-spec-library": [
+        "libraries/frontend-spec-library/src/index.ts"
       ],
-      "@cylon/widget-library": [
-        "libraries/widget-library/src/index.ts"
+      "@cylon/provider-block-library": [
+        "libraries/provider-block-library/src/index.ts"
+      ],
+      "@cylon/route-block-library": [
+        "libraries/route-block-library/src/index.ts"
+      ],
+      "@cylon/widget-block-library": [
+        "libraries/widget-block-library/src/index.ts"
       ]
     }
   },

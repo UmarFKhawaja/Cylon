@@ -2,7 +2,7 @@ import { doNothing, peekChar } from '../methods';
 import { Input, Result, Rule } from '../types';
 
 // Colon:
-//   '|'
+//   ':'
 
 export const ColonRule: Rule = {
   name: 'Colon',
